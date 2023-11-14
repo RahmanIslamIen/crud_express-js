@@ -6,6 +6,6 @@ ini adalah end-point route nya
 ```
 http://localhost:3000/users
 ```
-untuk metode nya bisa get, post, put(update), dan delete
+untuk metode nya bisa **get, post, put(update), dan delete**.
 
 cukup lumayan untuk latihan sederhana
