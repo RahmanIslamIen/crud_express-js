@@ -54,6 +54,46 @@ app.post("/users", (req, res) => {
   });
 });
 
+// update data
+app.put("/users/:id", (req, res) => {
+  const id = req.params.id;
+  const { name, emailaddress } = req.body;
+
+  if (!name || !emailaddress) {
+    return res.status(400).send("Name and emailaddress are required");
+  }
+
+  const updateUser = { name, emailaddress };
+  connection.query(
+    "UPDATE users SET ? WHERE id = ?",
+    [updateUser, id],
+    (error, results) => {
+      if (error) {
+        console.error("Error updating user:", error);
+        res.status(500).send("Error updating user");
+      } else {
+        res.status(200).send("User updated successfully");
+      }
+    }
+  );
+});
+
+// delete(hapus) data
+app.delete("/users/:id", (req, res) => {
+  let users_id = req.params.id;
+  connection.query(
+    "DELETE FROM users WHERE id = ?",
+    [users_id],
+    (err, results) => {
+      if (err) {
+        throw err;
+      } else {
+        res.send(results);
+      }
+    }
+  );
+});
+
 // menyalakan port localhost
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
